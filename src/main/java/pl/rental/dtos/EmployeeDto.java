@@ -1,9 +1,9 @@
 package pl.rental.dtos;
 
 public class EmployeeDto {
-    String name;
-    String surname;
-    String position;
+    private String name;
+    private String surname;
+    private String position;
 
     public EmployeeDto() {
     }
