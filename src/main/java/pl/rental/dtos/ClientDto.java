@@ -2,11 +2,11 @@ package pl.rental.dtos;
 
 public class ClientDto {
 
-    String name;
-    String surname;
-    String email;
-    String address;
-    String company; //may be null
+    private String name;
+    private String surname;
+    private String email;
+    private String address;
+    private String company; //may be null
 
     public ClientDto() {
     }
