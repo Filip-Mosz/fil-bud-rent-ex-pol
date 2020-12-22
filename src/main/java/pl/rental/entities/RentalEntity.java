@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
+import pl.rental.dtos.EmployeeDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Repository
@@ -25,8 +25,8 @@ public class RentalEntity {
     String website;
     String address;
 
-
-//    EmployeeEntity ceo;
+    @OneToOne( fetch = FetchType.LAZY)
+    private EmployeeEntity ceo;
 //    List<EmployeeDto> employees;
 
 }
