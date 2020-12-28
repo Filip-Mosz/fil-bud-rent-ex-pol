@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
-import pl.rental.dtos.EmployeeDto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-@Entity
+@Entity(name = "Wypozyczalnia")
 @Repository
 @Data
 @NoArgsConstructor
@@ -27,6 +26,8 @@ public class RentalEntity {
 
     @OneToOne( fetch = FetchType.LAZY)
     private EmployeeEntity ceo;
-//    List<EmployeeDto> employees;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<EmployeeEntity> employees = new ArrayList<>();
 
 }
