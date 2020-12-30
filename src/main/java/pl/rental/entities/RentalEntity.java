@@ -20,9 +20,9 @@ public class RentalEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String companyName;
-    String website;
-    String address;
+    private String companyName;
+    private String website;
+    private String address;
 
     @OneToOne( fetch = FetchType.LAZY)
     private EmployeeEntity ceo;
@@ -30,4 +30,58 @@ public class RentalEntity {
     @OneToMany(fetch = FetchType.LAZY)
     private List<EmployeeEntity> employees = new ArrayList<>();
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public RentalEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public RentalEntity setCompanyName(String companyName) {
+        this.companyName = companyName;
+        return this;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public RentalEntity setWebsite(String website) {
+        this.website = website;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public RentalEntity setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public EmployeeEntity getCeo() {
+        return ceo;
+    }
+
+    public RentalEntity setCeo(EmployeeEntity ceo) {
+        this.ceo = ceo;
+        return this;
+    }
+
+    public List<EmployeeEntity> getEmployees() {
+        return employees;
+    }
+
+    public RentalEntity setEmployees(List<EmployeeEntity> employees) {
+        this.employees = employees;
+        return this;
+    }
 }
