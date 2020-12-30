@@ -4,11 +4,14 @@ import pl.rental.dtos.EmployeeDto;
 import pl.rental.dtos.RentalDto;
 import pl.rental.entities.RentalEntity;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RentalMapper {
 
-    public static RentalDto toDto(RentalEntity entity){
+    public static RentalDto toDto(RentalEntity entity) {
 //        EmployeeDto ceo = new EmployeeDto()
 //                .setName(entity.getCeo().getName())
 //                .setPosition(entity.getCeo().getPosition())
@@ -17,8 +20,7 @@ public class RentalMapper {
 
         EmployeeDto ceo = EmployeeMapper.toDto(entity.getCeo());
 
-        List<EmployeeDto> employees = List.of();
-        //stream of employees + use static EmployeeMapper method to transfer employeeDto to EmployeeEntity
+        List<EmployeeDto> employees = getEmployeeDtoList(entity);
 
         return new RentalDto()
                 .setAddress(entity.getAddress())
@@ -26,6 +28,14 @@ public class RentalMapper {
                 .setWebsite(entity.getWebsite())
                 .setCeo(ceo)
                 .setEmployees(employees);
+    }
+
+    private static List<EmployeeDto> getEmployeeDtoList(RentalEntity entity) {
+        List<EmployeeDto> employees = new LinkedList<>();
+        entity.getEmployees().forEach(eDto -> employees.add(EmployeeMapper.toDto(eDto))
+        );
+        return employees;
+        //tested and green; i still have doubts
     }
 
 }
