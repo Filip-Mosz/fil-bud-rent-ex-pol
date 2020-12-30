@@ -2,21 +2,15 @@ package pl.rental.mappers;
 
 import pl.rental.dtos.EmployeeDto;
 import pl.rental.dtos.RentalDto;
+import pl.rental.entities.EmployeeEntity;
 import pl.rental.entities.RentalEntity;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class RentalMapper {
 
     public static RentalDto toDto(RentalEntity entity) {
-//        EmployeeDto ceo = new EmployeeDto()
-//                .setName(entity.getCeo().getName())
-//                .setPosition(entity.getCeo().getPosition())
-//                .setSurname(entity.getCeo().getSurname());
-        // TODO: 30.12.2020 remove after green test
 
         EmployeeDto ceo = EmployeeMapper.toDto(entity.getCeo());
 
@@ -30,12 +24,36 @@ public class RentalMapper {
                 .setEmployees(employees);
     }
 
+    public static RentalEntity toEntity(RentalDto dto){
+
+        EmployeeEntity ceo = EmployeeMapper.toEntity(dto.getCeo());
+
+        List<EmployeeEntity> employees = getEmployeeEntityList(dto);
+
+        return new RentalEntity()
+                .setAddress(dto.getAddress())
+                .setCompanyName(dto.getCompanyName())
+                .setWebsite(dto.getWebsite())
+                .setCeo(ceo)
+                .setEmployees(employees);
+    }
+
+
     private static List<EmployeeDto> getEmployeeDtoList(RentalEntity entity) {
         List<EmployeeDto> employees = new LinkedList<>();
-        entity.getEmployees().forEach(eDto -> employees.add(EmployeeMapper.toDto(eDto))
+        entity.getEmployees().forEach(
+                eDto -> employees.add(EmployeeMapper.toDto(eDto))
         );
         return employees;
-        //tested and green; i still have doubts
+        //tested and green; yet i still have doubts
+    }
+
+    private static List<EmployeeEntity> getEmployeeEntityList(RentalDto dto) {
+        List<EmployeeEntity> employees = new LinkedList<>();
+        dto.getEmployees().forEach(
+                eEnt -> employees.add(EmployeeMapper.toEntity(eEnt))
+        );
+        return employees;
     }
 
 }
