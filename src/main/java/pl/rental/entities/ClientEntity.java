@@ -27,5 +27,57 @@ public class ClientEntity {
     private String address;
     private String company; //may be null
 
+    public Long getId() {
+        return id;
+    }
 
+    public ClientEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ClientEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public ClientEntity setSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public ClientEntity setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public ClientEntity setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public ClientEntity setCompany(String company) {
+        this.company = company;
+        return this;
+    }
 }
