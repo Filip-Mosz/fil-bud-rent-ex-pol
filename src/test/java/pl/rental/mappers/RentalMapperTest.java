@@ -1,6 +1,5 @@
 package pl.rental.mappers;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.rental.dtos.EmployeeDto;
 import pl.rental.dtos.RentalDto;
@@ -10,7 +9,8 @@ import pl.rental.enums.PositionEnum;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class RentalMapperTest {
 
