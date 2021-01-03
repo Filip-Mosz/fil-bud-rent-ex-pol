@@ -30,4 +30,57 @@ public class RentEntity {
     private Date dateOfRent;
     private Date estimatedDateOfReturn;
 
+    public Long getId() {
+        return id;
+    }
+
+    public RentEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public EquipmentEntity getMachineId() {
+        return machineId;
+    }
+
+    public RentEntity setMachineId(EquipmentEntity machineId) {
+        this.machineId = machineId;
+        return this;
+    }
+
+    public ClientEntity getClientId() {
+        return clientId;
+    }
+
+    public RentEntity setClientId(ClientEntity clientId) {
+        this.clientId = clientId;
+        return this;
+    }
+
+    public EmployeeEntity getEmployeeId() {
+        return employeeId;
+    }
+
+    public RentEntity setEmployeeId(EmployeeEntity employeeId) {
+        this.employeeId = employeeId;
+        return this;
+    }
+
+    public Date getDateOfRent() {
+        return dateOfRent;
+    }
+
+    public RentEntity setDateOfRent(Date dateOfRent) {
+        this.dateOfRent = dateOfRent;
+        return this;
+    }
+
+    public Date getEstimatedDateOfReturn() {
+        return estimatedDateOfReturn;
+    }
+
+    public RentEntity setEstimatedDateOfReturn(Date estimatedDateOfReturn) {
+        this.estimatedDateOfReturn = estimatedDateOfReturn;
+        return this;
+    }
 }
