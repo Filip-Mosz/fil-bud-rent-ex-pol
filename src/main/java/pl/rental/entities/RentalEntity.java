@@ -25,6 +25,7 @@ public class RentalEntity {
     private String address;
 
     @OneToOne( fetch = FetchType.LAZY)
+//    @JoinColumn(name = "Ceo")
     private EmployeeEntity ceo;
 
     @OneToMany(fetch = FetchType.LAZY)

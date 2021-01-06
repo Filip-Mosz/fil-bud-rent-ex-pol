@@ -286,6 +286,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(0))
                 .setMachineId(equipments.get(0))
                 .setDateOfReturn(new Date(120,10,5))
+                .setRentId(rents.get(0))
                 .setDelayInDays(0L);
         initiateReturns(returnEntity0);
 
@@ -294,6 +295,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(1))
                 .setMachineId(equipments.get(1))
                 .setDateOfReturn(new Date(120,10,5))
+                .setRentId(rents.get(1))
                 .setDelayInDays(1L);
         initiateReturns(returnEntity1);
 
@@ -302,6 +304,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(2))
                 .setMachineId(equipments.get(2))
                 .setDateOfReturn(new Date(120,10,10))
+                .setRentId(rents.get(2))
                 .setDelayInDays(0L);
         initiateReturns(returnEntity2);
 
@@ -310,6 +313,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(3))
                 .setMachineId(equipments.get(3))
                 .setDateOfReturn(new Date(120,10,11))
+                .setRentId(rents.get(3))
                 .setDelayInDays(0L);
         initiateReturns(returnEntity3);
 
@@ -318,6 +322,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(4))
                 .setMachineId(equipments.get(4))
                 .setDateOfReturn(new Date(120,10,8))
+                .setRentId(rents.get(4))
                 .setDelayInDays(0L);
         initiateReturns(returnEntity4);
 
@@ -326,6 +331,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(5))
                 .setMachineId(equipments.get(5))
                 .setDateOfReturn(new Date(120,10, 15))
+                .setRentId(rents.get(5))
                 .setDelayInDays(5L);
         initiateReturns(returnEntity5);
 
@@ -334,6 +340,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(6))
                 .setMachineId(equipments.get(6))
                 .setDateOfReturn(new Date(120, 10, 10))
+                .setRentId(rents.get(6))
                 .setDelayInDays(0L);
         initiateReturns(returnEntity6);
 
@@ -342,6 +349,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(0))
                 .setMachineId(equipments.get(7))
                 .setDateOfReturn(new Date(120, 10, 14))
+                .setRentId(rents.get(7))
                 .setDelayInDays(0L);
         initiateReturns(returnEntity7);
 
@@ -350,6 +358,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(1))
                 .setMachineId(equipments.get(8))
                 .setDateOfReturn(new Date(120, 10, 17))
+                .setRentId(rents.get(8))
                 .setDelayInDays(0l);
         initiateReturns(returnEntity8);
 
@@ -358,6 +367,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setClientId(clients.get(2))
                 .setMachineId(equipments.get(0))
                 .setDateOfReturn(new Date(120, 10, 19))
+                .setRentId(rents.get(9))
                 .setDelayInDays(0L);
         initiateReturns(returnEntity9);
 
