@@ -367,6 +367,7 @@ public class InitialDataService implements CommandLineRunner {
     private void initiateClients(ClientEntity client) {
         clients.add(client);
         clientRepository.save(client);
+        System.out.println(client.toString());
     }
 
     private void initiateEmployees(EmployeeEntity employee) {

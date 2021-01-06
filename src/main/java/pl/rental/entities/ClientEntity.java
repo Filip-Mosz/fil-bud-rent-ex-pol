@@ -80,4 +80,16 @@ public class ClientEntity {
         this.company = company;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "ClientEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", company='" + company + '\'' +
+                '}';
+    }
 }
