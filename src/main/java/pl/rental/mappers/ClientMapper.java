@@ -1,9 +1,7 @@
 package pl.rental.mappers;
 
 import pl.rental.dtos.ClientDto;
-import pl.rental.dtos.EquipmentDto;
 import pl.rental.entities.ClientEntity;
-import pl.rental.entities.EquipmentEntity;
 
 public class ClientMapper {
 
