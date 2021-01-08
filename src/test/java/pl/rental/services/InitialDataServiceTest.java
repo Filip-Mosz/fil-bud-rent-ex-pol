@@ -6,9 +6,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.rental.entities.EquipmentEntity;
+import pl.rental.entities.*;
+import pl.rental.enums.PositionEnum;
 import pl.rental.enums.StatusEnum;
 import pl.rental.repositories.*;
+
+import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -80,25 +85,136 @@ class InitialDataServiceTest {
 
     @Test
     void fillSampleClients() {
+        ClientEntity client = new ClientEntity()
+                .setName("Maksymilian")
+                .setSurname("Habsburg")
+                .setEmail("cesar@holyromanempire.de")
+                .setAddress("Zamek Habsburg")
+                .setCompany("Swiete Cesarstwo Rzymskie narodu niemieckiego");
+
+        initial.fillSampleClients();
+
+        verify(clientRepository).save(client);
     }
 
     @Test
     void fillSampleEmployees() {
+        EmployeeEntity emp = new EmployeeEntity()
+                .setName("Janina")
+                .setSurname("Kowalska")
+                .setPosition(PositionEnum.CEO.toString());
+
+        initial.fillSampleEmployees();
+
+        verify(employeeRepository).save(emp);
     }
 
+    //dotyczy 3 poniższych testów
+    // wywala wyjątek java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 w klasie testowanej, przy próbie utworzenia wyporzyczalni
     @Test
     void createHistory() {
+        RentEntity rent3 = new RentEntity()
+                .setMachineId(new EquipmentEntity()
+                        .setBrand("Prosperplast")
+                        .setModel("Wiadro z lejkiem 15l")
+                        .setType("Wiadro")
+                        .setPrizeForDay(5L)
+                        .setStatus(StatusEnum.AVAILABLE.toString()))
+                .setClientId(new ClientEntity()
+                        .setName("Stefan")
+                        .setSurname("Batory")
+                        .setEmail("krol@rzplita.pl")
+                        .setAddress("Wawel")
+                        .setCompany("Rzeczpospolita Obojga Narodów"))
+                .setEmployeeId(new EmployeeEntity()
+                        .setName("Jacek")
+                        .setSurname("Kaczmarski")
+                        .setPosition(PositionEnum.MANAGER.toString()))
+                .setDateOfRent(new Date(120, 10, 10))
+                .setEstimatedDateOfReturn(new Date(120, 10, 11));
+        ReturnEntity returnEntity3 = new ReturnEntity()
+                .setEmployeeId(new EmployeeEntity()
+                        .setName("Jacek")
+                        .setSurname("Kaczmarski")
+                        .setPosition(PositionEnum.MANAGER.toString()))
+                .setClientId(new ClientEntity()
+                        .setName("Stefan")
+                        .setSurname("Batory")
+                        .setEmail("krol@rzplita.pl")
+                        .setAddress("Wawel")
+                        .setCompany("Rzeczpospolita Obojga Narodów"))
+                .setMachineId(new EquipmentEntity()
+                        .setBrand("Prosperplast")
+                        .setModel("Wiadro z lejkiem 15l")
+                        .setType("Wiadro")
+                        .setPrizeForDay(5L)
+                        .setStatus(StatusEnum.AVAILABLE.toString()))
+                .setDateOfReturn(new Date(120, 10, 11))
+                .setRentId(rent3)
+                .setDelayInDays(0L);
+
+        initial.createHistory();
+
+        verify(returnRepository).save(returnEntity3);
     }
 
     @Test
     void createRental() {
+
+        EmployeeEntity emp0 = new EmployeeEntity()
+                .setName("Janina")
+                .setSurname("Kowalska")
+                .setPosition(PositionEnum.CEO.toString());
+        EmployeeEntity emp1 = new EmployeeEntity()
+                .setName("Jacek")
+                .setSurname("Kaczmarski")
+                .setPosition(PositionEnum.MANAGER.toString());
+        EmployeeEntity emp2 = new EmployeeEntity()
+                .setName("Grzegorz")
+                .setSurname("Brzeczyszczykiewicz")
+                .setPosition(PositionEnum.REGULAR.toString());
+
+        LinkedList<EmployeeEntity> employees = new LinkedList<>();
+        employees.add(emp0);
+        employees.add(emp1);
+        employees.add(emp2);
+
+        RentalEntity mainRental = new RentalEntity()
+                .setCeo(employees.get(0))
+                .setCompanyName("Fil-Bud-Rent-Ex-Pol")
+                .setAddress("ul. Budowlana 0, 00-000 Wygwizdów")
+                .setEmployees(employees)
+                .setWebsite("www.filbudrentexpol.com.pl");
+
+        initial.createRental();
+
+        verify(rentalRepository).save(mainRental);
     }
 
     @Test
-    void makeUpRents() {
-    }
+    void makeUpRents(){
+        RentEntity rent3 = new RentEntity()
+                .setMachineId(new EquipmentEntity()
+                        .setBrand("Prosperplast")
+                        .setModel("Wiadro z lejkiem 15l")
+                        .setType("Wiadro")
+                        .setPrizeForDay(5L)
+                        .setStatus(StatusEnum.AVAILABLE.toString()))
+                .setClientId(new ClientEntity()
+                        .setName("Stefan")
+                        .setSurname("Batory")
+                        .setEmail("krol@rzplita.pl")
+                        .setAddress("Wawel")
+                        .setCompany("Rzeczpospolita Obojga Narodów"))
+                .setEmployeeId(new EmployeeEntity()
+                        .setName("Jacek")
+                        .setSurname("Kaczmarski")
+                        .setPosition(PositionEnum.MANAGER.toString()))
+                .setDateOfRent(new Date(120, 10, 10))
+                .setEstimatedDateOfReturn(new Date(120, 10, 11));
 
-    @Test
-    void makeUpReturns() {
+        initial.makeUpRents();
+
+        verify(rentRepository).save(rent3);
     }
 }
