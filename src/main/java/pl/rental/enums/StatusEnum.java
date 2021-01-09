@@ -3,7 +3,7 @@ package pl.rental.enums;
 public enum StatusEnum {
     AVAILABLE("dostępny"),
     UNAVAILABLE("niedostępny"),
-    BORROWED("dostępny");
+    BORROWED("niedostępny");
 
     private final String displayState;
 
