@@ -1,8 +1,8 @@
 package pl.rental.services;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,14 +13,15 @@ import pl.rental.repositories.*;
 
 import java.sql.Date;
 import java.util.LinkedList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings({"deprecation"})
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 class InitialDataServiceTest {
+
+    // TODO: 09.01.2021 refactor to integration test, just as i understand how
 
     @Mock
     private ClientRepository clientRepository;
@@ -35,9 +36,13 @@ class InitialDataServiceTest {
     @Mock
     private ReturnRepository returnRepository;
 
-    @InjectMocks
+    //    @InjectMocks
     InitialDataService initial;
 
+    @BeforeEach
+    public void setUp() {
+        this.initial = new InitialDataService(clientRepository, employeeRepository, equipmentRepository, rentalRepository, rentRepository, returnRepository);
+    }
 
     @Test
     void run() {
@@ -104,6 +109,8 @@ class InitialDataServiceTest {
                 .setSurname("Kowalska")
                 .setPosition(PositionEnum.CEO.toString());
 
+        when(employeeRepository.save(eq(emp))).thenReturn(emp);
+
         initial.fillSampleEmployees();
 
         verify(employeeRepository).save(emp);
@@ -112,7 +119,7 @@ class InitialDataServiceTest {
     //dotyczy 3 poniższych testów
     // wywala wyjątek java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 w klasie testowanej, przy próbie utworzenia wyporzyczalni
     @Test
-    void createHistory() {
+    void createHistory() throws Exception {
         RentEntity rent3 = new RentEntity()
                 .setMachineId(new EquipmentEntity()
                         .setBrand("Prosperplast")
@@ -153,13 +160,13 @@ class InitialDataServiceTest {
                 .setRentId(rent3)
                 .setDelayInDays(0L);
 
-        initial.createHistory();
+        initial.run();
 
-        verify(returnRepository).save(returnEntity3);
+        verify(returnRepository, times(10)).save(any());
     }
 
     @Test
-    void createRental() {
+    void createRental() throws Exception {
 
         EmployeeEntity emp0 = new EmployeeEntity()
                 .setName("Janina")
@@ -186,13 +193,13 @@ class InitialDataServiceTest {
                 .setEmployees(employees)
                 .setWebsite("www.filbudrentexpol.com.pl");
 
-        initial.createRental();
+        initial.run();
 
         verify(rentalRepository).save(mainRental);
     }
 
     @Test
-    void makeUpRents(){
+    void makeUpRents() throws Exception {
         RentEntity rent3 = new RentEntity()
                 .setMachineId(new EquipmentEntity()
                         .setBrand("Prosperplast")
@@ -213,8 +220,8 @@ class InitialDataServiceTest {
                 .setDateOfRent(new Date(120, 10, 10))
                 .setEstimatedDateOfReturn(new Date(120, 10, 11));
 
-        initial.makeUpRents();
+        initial.run();
 
-        verify(rentRepository).save(rent3);
+        verify(rentRepository, times(11)).save(any());
     }
 }

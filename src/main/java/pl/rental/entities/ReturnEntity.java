@@ -18,7 +18,7 @@ public class ReturnEntity {
     @OneToOne
     private EmployeeEntity employeeId;
 
-//    use field below to validate if rented equipment matches returned equipment
+//    use field below to validate if rented equipment matches returned equipment WYWALIĆ
     @OneToOne
     private EquipmentEntity machineId;
     @OneToOne

@@ -396,7 +396,7 @@ public class InitialDataService implements CommandLineRunner {
     }
 
     private void initiateEquipment(EquipmentEntity machine) {
-        equipmentRepository.save(machine);
-        equipments.add(machine);
+        EquipmentEntity machineWithId = equipmentRepository.save(machine);
+        equipments.add(machineWithId);
     }
 }
