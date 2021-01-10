@@ -55,6 +55,18 @@ public class InitialDataService implements CommandLineRunner {
                 .setType("Zagęszczarka do betonu")
                 .setPrizeForDay(50L)
                 .setStatus(StatusEnum.AVAILABLE.toString());
+        EquipmentEntity equ01 = new EquipmentEntity()
+                .setBrand("Makiła")
+                .setModel("Pan Twardeusz")
+                .setType("Zagęszczarka do betonu")
+                .setPrizeForDay(50L)
+                .setStatus(StatusEnum.AVAILABLE.toString());
+        EquipmentEntity equ02 = new EquipmentEntity()
+                .setBrand("Makiła")
+                .setModel("Pan Twardeusz")
+                .setType("Zagęszczarka do betonu")
+                .setPrizeForDay(50L)
+                .setStatus(StatusEnum.AVAILABLE.toString());
         EquipmentEntity equ1 = new EquipmentEntity()
                 .setBrand("Altrad")
                 .setModel("Expert 130K")
@@ -67,23 +79,54 @@ public class InitialDataService implements CommandLineRunner {
                 .setType("Wiadro")
                 .setPrizeForDay(5L)
                 .setStatus(StatusEnum.AVAILABLE.toString());
+        EquipmentEntity equ21 = new EquipmentEntity()
+                .setBrand("Prosperplast")
+                .setModel("Wiadro z lejkiem 15l")
+                .setType("Wiadro")
+                .setPrizeForDay(5L)
+                .setStatus(StatusEnum.AVAILABLE.toString());
+        EquipmentEntity equ22 = new EquipmentEntity()
+                .setBrand("Prosperplast")
+                .setModel("Wiadro z lejkiem 15l")
+                .setType("Wiadro")
+                .setPrizeForDay(5L)
+                .setStatus(StatusEnum.AVAILABLE.toString());
+        EquipmentEntity equ23 = new EquipmentEntity()
+                .setBrand("Prosperplast")
+                .setModel("Wiadro z lejkiem 15l")
+                .setType("Wiadro")
+                .setPrizeForDay(5L)
+                .setStatus(StatusEnum.AVAILABLE.toString());
+        EquipmentEntity equ24 = new EquipmentEntity()
+                .setBrand("Prosperplast")
+                .setModel("Wiadro z lejkiem 15l")
+                .setType("Wiadro")
+                .setPrizeForDay(5L)
+                .setStatus(StatusEnum.AVAILABLE.toString());
         EquipmentEntity equ3 = new EquipmentEntity()
                 .setBrand("NoName")
                 .setModel("Taczka budowlana")
                 .setType("Taczka")
                 .setPrizeForDay(15L)
                 .setStatus(StatusEnum.AVAILABLE.toString());
+        EquipmentEntity equ31 = new EquipmentEntity()
+                .setBrand("NoName")
+                .setModel("Taczka budowlana")
+                .setType("Taczka")
+                .setPrizeForDay(15L)
+                .setStatus(StatusEnum.AVAILABLE.toString());
+
 
         initiateEquipment(equ0);
-        initiateEquipment(equ0);
-        initiateEquipment(equ0);
+        initiateEquipment(equ01);
+        initiateEquipment(equ02);
         initiateEquipment(equ1);
         initiateEquipment(equ2);
-        initiateEquipment(equ2);
-        initiateEquipment(equ2);
-        initiateEquipment(equ2);
+        initiateEquipment(equ21);
+        initiateEquipment(equ23);
+        initiateEquipment(equ24);
         initiateEquipment(equ3);
-        initiateEquipment(equ3);
+        initiateEquipment(equ31);
     }
 
     void fillSampleClients() {
@@ -375,24 +418,23 @@ public class InitialDataService implements CommandLineRunner {
     }
 
     private void initiateClients(ClientEntity client) {
-        clients.add(client);
-        clientRepository.save(client);
-        System.out.println(client.toString());
+        ClientEntity clientWithId = clientRepository.save(client);
+        clients.add(clientWithId);
     }
 
     private void initiateEmployees(EmployeeEntity employee) {
-        employeeRepository.save(employee);
-        employees.add(employee);
+        EmployeeEntity employeeWithId = employeeRepository.save(employee);
+        employees.add(employeeWithId);
     }
 
     private void initiateRents(RentEntity rent) {
-        rentRepository.save(rent);
-        rents.add(rent);
+        RentEntity rentWithId = rentRepository.save(rent);
+        rents.add(rentWithId);
     }
 
     private void initiateReturns(ReturnEntity returnEntity) {
-        returnRepository.save(returnEntity);
-        returns.add(returnEntity);
+        ReturnEntity returnWithId = returnRepository.save(returnEntity);
+        returns.add(returnWithId);
     }
 
     private void initiateEquipment(EquipmentEntity machine) {

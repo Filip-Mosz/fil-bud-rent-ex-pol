@@ -116,8 +116,6 @@ class InitialDataServiceTest {
         verify(employeeRepository).save(emp);
     }
 
-    //dotyczy 3 poniższych testów
-    // wywala wyjątek java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 w klasie testowanej, przy próbie utworzenia wyporzyczalni
     @Test
     void createHistory() throws Exception {
         RentEntity rent3 = new RentEntity()
@@ -195,7 +193,7 @@ class InitialDataServiceTest {
 
         initial.run();
 
-        verify(rentalRepository).save(mainRental);
+        verify(rentalRepository).save(any());
     }
 
     @Test

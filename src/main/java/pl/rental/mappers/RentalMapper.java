@@ -45,7 +45,6 @@ public class RentalMapper {
                 eDto -> employees.add(EmployeeMapper.toDto(eDto))
         );
         return employees;
-        //tested and green; yet i still have doubts
     }
 
     private static List<EmployeeEntity> getEmployeeEntityList(RentalDto dto) {
@@ -57,4 +56,3 @@ public class RentalMapper {
     }
 
 }
-//Todo skonsultować konstrukcję metody toDto z Grzegorzem W.
