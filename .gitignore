@@ -31,6 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
 /rental.mv.db
 /rental.trace.db
 /fil-bud-rent-ex-pol.zip
+/NextStep.txt

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body th:fragment="menu">
+<nav
+    style="
+        background: deepskyblue;
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        padding: 1rem;
+        justify-content: space-evenly;
+        scroll-behavior: auto;
+        box-shadow: #80808080 0 0.5rem 0.5rem 0.7rem;
+    ">
+            <a href="/">Główna</a>
+            <a href="/rents">Wynajem</a>
+            <a href="/returns">Zwroty</a>
+            <a href="/about">O nas</a>
+</nav>
+
+</body>
+</html>

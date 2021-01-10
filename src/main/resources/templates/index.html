@@ -3,11 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>HomePage</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-Homepage
-<p><a href="/rents">Wynajem</a></p>
-<p><a href="/returns">Zwroty</a></p>
-<p><a href="/about">O nas </a></p>
+<body style="align: center">
+<nav th:replace="menu"></nav>
+
+<h1>fil-bud-rent-ex-pol</h1>
+<h3>Final project for SDA course "Java from scratch" - construction equipment rental.</h3>
+<p><b>Name came from various suffixes used by polish small businesses. For a joke I decided to use it all.</b></p>
+
+<p>
+
+I'd like to use here:
+    <li>
+    <ul>* Spring Boot</ul>
+    <ul>* Spring JPA</ul>
+    <ul>* H2 database</ul>
+    <ul>* Thymeleaf for presentation layer</ul>
+</li>
+</p>
+
+<footer th:replace="footer"> footer</footer>
 </body>
 </html>

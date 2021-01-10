@@ -1,0 +1,20 @@
+html{
+    background-color: lightskyblue;
+}
+h1{
+    font-style: italic;
+}
+
+footer{
+    color: darkgray;
+    font-size: 0.5rem;
+    background-color: #004556;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    justify-content: space-evenly;
+    /*color: #007bff;*/
+}
