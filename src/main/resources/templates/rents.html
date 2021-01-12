@@ -8,6 +8,8 @@
 <body>
 <nav th:replace="menu"></nav>
 
+<div th:each="item : ${equipments}" th:text="${item.brand}">tu mają być equipmenty</div>
+
 <footer th:replace="footer"> footer</footer>
 </body>
 </html>

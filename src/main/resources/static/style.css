@@ -18,3 +18,8 @@ footer{
     justify-content: space-evenly;
     /*color: #007bff;*/
 }
+ol {
+
+    list-style-type: symbols("*");
+
+}

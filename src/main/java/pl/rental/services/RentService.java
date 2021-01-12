@@ -36,4 +36,7 @@ public class RentService {
         equipmentRepository.save(rentedMachine);
     }
 
+    public List<EquipmentEntity> getAll() {
+        return equipmentRepository.findAll();
+    }
 }
