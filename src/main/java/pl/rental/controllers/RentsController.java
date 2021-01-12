@@ -15,6 +15,7 @@ public class RentsController {
         this.rentService = rentService;
     }
 
+
     private final RentService rentService;
 
     @GetMapping("/rents")

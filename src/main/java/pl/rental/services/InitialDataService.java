@@ -96,7 +96,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setModel("Wiadro z lejkiem 15l")
                 .setType("Wiadro")
                 .setPrizeForDay(5L)
-                .setStatus(StatusEnum.AVAILABLE.toString());
+                .setStatus(StatusEnum.UNAVAILABLE.toString());
         EquipmentEntity equ24 = new EquipmentEntity()
                 .setBrand("Prosperplast")
                 .setModel("Wiadro z lejkiem 15l")
@@ -114,7 +114,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setModel("Taczka budowlana")
                 .setType("Taczka")
                 .setPrizeForDay(15L)
-                .setStatus(StatusEnum.AVAILABLE.toString());
+                .setStatus(StatusEnum.BORROWED.toString());
 
 
         initiateEquipment(equ0);

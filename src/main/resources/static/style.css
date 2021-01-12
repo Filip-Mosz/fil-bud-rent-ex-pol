@@ -18,8 +18,13 @@ footer{
     justify-content: space-evenly;
     /*color: #007bff;*/
 }
-ol {
+tr{
 
-    list-style-type: symbols("*");
+}
 
+table{
+    padding: 20px;
+    border: lightskyblue dotted;
+    color: chartreuse;
+    font-style: italic;
 }

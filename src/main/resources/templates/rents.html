@@ -8,26 +8,30 @@
 <body>
 <nav th:replace="menu"></nav>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Marka</th>
-        <th>Model</th>
-        <th>Typ</th>
-        <th>cena/dzień</th>
-        <th>Status</th>
+<div style="margin: 20px">
+    <table >
+        <tr style="background: aqua">
+            <th>ID</th>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Typ</th>
+            <th>cena/dzień</th>
+            <th>Status</th>
 
-    </tr>
-    <tr th:each="item : ${equipments}" >
-        <th th:text="${item.id}"></th>
-        <th th:text="${item.brand}"></th>
-        <th th:text="${item.model}"></th>
-        <th th:text="${item.type}"></th>
-        <th th:text="${item.prizeForDay}"></th>
-        <th th:text="${item.status}"></th>
-    </tr>
+        </tr>
+        <tr th:each="item : ${equipments}">
+            <th th:text="${item.id}"></th>
+            <th th:text="${item.brand}"></th>
+            <th th:text="${item.model}"></th>
+            <th th:text="${item.type}"></th>
+            <th th:text="${#strings.concat(item.prizeForDay, ' zł')}"></th>
+            <!--    condition for status   -->
+            <th th:if="${item.status == 'AVAILABLE'}">Dostępny</th>
+            <th th:unless="${item.status == 'AVAILABLE'}" style="color: red">Niedostępny</th>
+        </tr>
 
-</table>
+    </table>
+</div>
 
 <footer th:replace="footer"> footer</footer>
 </body>
