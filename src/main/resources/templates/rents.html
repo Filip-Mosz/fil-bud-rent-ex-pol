@@ -20,15 +20,19 @@
 
         </tr>
         <tr th:each="item : ${equipments}">
-            <th th:text="${item.id}"></th>
-            <th th:text="${item.brand}"></th>
-            <th th:text="${item.model}"></th>
-            <th th:text="${item.type}"></th>
-            <th th:text="${#strings.concat(item.prizeForDay, ' zł')}"></th>
-            <!--    condition for status   -->
-            <th th:if="${item.status == 'AVAILABLE'}">Dostępny</th>
-            <th th:unless="${item.status == 'AVAILABLE'}" style="color: red">Niedostępny</th>
+            <td th:text="${item.id}" ></td>
+            <td th:text="${item.brand}" ></td>
+            <td th:text="${item.model}" ></td>
+            <td th:text="${item.type}"></td>
+            <td th:text="${#strings.concat(item.prizeForDay, ' zł')}"></td>
+            <!--    conditional for status   -->
+            <td th:if="${item.status == 'AVAILABLE'}">
+                <span style="color: #808080; display: block">Dostępny</span>
+            </td>
+            <td th:unless="${item.status == 'AVAILABLE'}" style="color: #e0ffff; display: block">Niedostepny</td>
+
         </tr>
+
 
     </table>
 </div>
