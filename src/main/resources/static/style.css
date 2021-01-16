@@ -16,10 +16,17 @@ footer{
     z-index: 1;
     width: 100%;
     justify-content: space-evenly;
-    /*color: #007bff;*/
 }
-tr{
+.formBorder{
+    /*display: block;*/
+    padding: 40px;
+    display: flex;
+    border: groove blue;
+}
 
+input{
+    border: groove blueviolet;
+    background-color: green;
 }
 
 table{
