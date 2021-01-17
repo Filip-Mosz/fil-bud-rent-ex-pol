@@ -8,20 +8,14 @@
 <body>
 <nav th:replace="menu"></nav>
 
-<p>tu powinien być formularz -> imie i mazwisko klienta(uzupełniane z automatu dla zalogowanych) i sprzęt do zwrotu</p>
-<p>na tej podstawie szukamy wypożyczenia i generujemy plik zwrotu</p>
-
 <div style="display: flex;
         justify-content: space-evenly">
     <div style="padding: 40px;
     border: groove blue;">
         <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">
-            <p>Imie:
-                <input type="text" th:field="*{name}" placeholder="Jan">
+            <p>Nr identyfikacyjny wypożyczenia
             </p>
-            <p>Nazwisko:
-                <input type="text" th:field="*{surname}" placeholder="Kowalski">
-            </p>
+            <input type="text" th:field="*{rentId}" placeholder="id<10">
             <p>
                 <input type="submit" value="Potwierdź"/>
                 <input type="reset" value="Wyczyść"/>
@@ -36,9 +30,12 @@
     <div style="padding: 40px;
     border: groove blue;">
         <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">
-            <p>Nr identyfikacyjny wypożyczenia
+            <p>Imie:
+                <input type="text" th:field="*{name}" placeholder="Jan">
             </p>
-                <input type="text" th:field="*{rentId}" placeholder="id<10">
+            <p>Nazwisko:
+                <input type="text" th:field="*{surname}" placeholder="Kowalski">
+            </p>
             <p>
                 <input type="submit" value="Potwierdź"/>
                 <input type="reset" value="Wyczyść"/>

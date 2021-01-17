@@ -21,9 +21,6 @@ class ReturnsController {
 
     private final ReturnRepository returnRepository;
 
-    List<ReturnEntity> returnsOfUser = new LinkedList<>();
-    List<RentEntity> rentsOfUser = new LinkedList<>();
-
     @GetMapping("/returns")
     public String getReturns(Model model, ReturnForm returnForm) {
         List<ReturnEntity> returnEntityList = returnRepository.findAll();
@@ -37,6 +34,7 @@ class ReturnsController {
     @PostMapping("/returns")
     public ReturnForm newReturnForm(@ModelAttribute ReturnForm returnForm, Model model){
         model.addAttribute("returnForm", returnForm);
+
         return returnForm;
     }
 
