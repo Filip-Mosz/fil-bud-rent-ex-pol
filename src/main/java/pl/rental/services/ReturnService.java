@@ -11,21 +11,21 @@ import pl.rental.repositories.ReturnRepository;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ReturnService {
 
-    public ReturnService(ReturnRepository returnRepository, ClientRepository clientRepository, RentRepository rentRepository) {
+    public ReturnService(ReturnRepository returnRepository, ClientRepository clientRepository, RentRepository rentRepository, ClientService clientService) {
         this.returnRepository = returnRepository;
         this.clientRepository = clientRepository;
         this.rentRepository = rentRepository;
+        this.clientService = clientService;
     }
 
     private final ReturnRepository returnRepository;
     private final ClientRepository clientRepository;
     private final RentRepository rentRepository;
+    private final ClientService clientService;
 
     List<ReturnEntity> returnsOfUser = new LinkedList<>();
     List<RentEntity> rentsOfUser = new LinkedList<>();
@@ -38,7 +38,7 @@ public class ReturnService {
         //        return returnRepository.findFirstByNameAndSurname(form.getName(), form.getSurname());
 //        1.znaleźć klienta
 //        2.przez id klienta znaleźć ostatni wynajem bez pasującego zwrotu
-        ClientEntity foundClient = identifyClient(form);
+        ClientEntity foundClient = clientService.identifyClient(form);
         if (foundClient.getName() == null){
             return new ReturnEntity();
         }
@@ -46,33 +46,5 @@ public class ReturnService {
         return returnRepository.getOne(foundClient.getId());
     }
 
-    private ClientEntity identifyClient(ReturnForm form) {
-
-        LinkedList<ClientEntity> potentialClients = (LinkedList<ClientEntity>) clientRepository.findAllByNameAndSurname(form.getName(), form.getSurname());
-        if (potentialClients == null){
-            return new ClientEntity();
-        }
-        if (potentialClients.size() == 1) {
-            return potentialClients.get(0);
-        }
-        else if (potentialClients.size() > 1) {
-
-            for (int i = 0; i < potentialClients.size(); i++) {
-                Optional<RentEntity> rentsByClientId = rentRepository.getAllByClientId(potentialClients.get(i).getId());
-                Optional<ReturnEntity> returnsByClientId = returnRepository.getAllByClientId(potentialClients.get(i).getId());
-                rentsByClientId.ifPresent(c -> rentsOfUser = (List<RentEntity>) Collectors.toList());
-                returnsByClientId.ifPresent(c -> returnsOfUser = (List<ReturnEntity>) Collectors.toList());
-
-                if (returnsOfUser.size() < rentsOfUser.size()) {
-//technically at this point potentialClients cannot be null
-                    return potentialClients.get(i);
-                }
-
-            }
-
-            return new ClientEntity();
-        }
-        return new ClientEntity();
-    }
 
 }

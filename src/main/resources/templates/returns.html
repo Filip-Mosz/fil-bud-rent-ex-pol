@@ -30,11 +30,8 @@
     <div style="padding: 40px;
     border: groove blue;">
         <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">
-            <p>Imie:
-                <input type="text" th:field="*{name}" placeholder="Jan">
-            </p>
-            <p>Nazwisko:
-                <input type="text" th:field="*{surname}" placeholder="Kowalski">
+            <p>Nr identyfikacyjny klienta
+                <input type="text" th:field="*{clientId}" placeholder="id<5">
             </p>
             <p>
                 <input type="submit" value="Potwierdź"/>

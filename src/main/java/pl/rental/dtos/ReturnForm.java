@@ -1,10 +1,11 @@
 package pl.rental.dtos;
 
 public class ReturnForm {
-    public ReturnForm(String name, String surname, Long rentId) {
+    public ReturnForm(String name, String surname, Long rentId, Long clientId) {
         this.name = name;
         this.surname = surname;
         this.rentId = rentId;
+        this.clientId = clientId;
     }
 
     public ReturnForm() {
@@ -13,7 +14,16 @@ public class ReturnForm {
     private String name;
     private String surname;
     private Long rentId;
+    private Long clientId;
 
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public ReturnForm setClientId(Long clientId) {
+        this.clientId = clientId;
+        return this;
+    }
 
     public String getName() {
         return name;
