@@ -6,11 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.rental.dtos.ReturnForm;
-import pl.rental.entities.RentEntity;
 import pl.rental.entities.ReturnEntity;
 import pl.rental.repositories.ReturnRepository;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller

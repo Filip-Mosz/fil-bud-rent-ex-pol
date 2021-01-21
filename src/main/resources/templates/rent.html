@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav th:replace="menu"></nav>
+
+<div style="margin: 20px">
+
+</div>
+
+<div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>E-mail</th>
+            <th>Adres</th>
+            <th>Firma</th>
+        </tr>
+        <tr>
+            <td>Adres</td>
+            <td >Firma</td>
+        </tr>
+<!--
+            powtórzyć pola rentEntity
+            rozwarzyć wystawienie wypozyczenia w JSONie
+-->
+    </table>
+</div>
+<!--bez tej tabeli po odświerzeniu nie pokazuje się lista dostępnych maszyn, ale działa-->
+<!--obecność tej tabeli powoduje 500 po przesłaniu formularza, choć on sam działa poprawnie-->
+
+<footer th:replace="footer"> footer</footer>
+</body>
+</html>

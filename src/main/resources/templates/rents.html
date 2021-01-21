@@ -7,7 +7,7 @@
 </head>
 <body>
 <nav th:replace="menu"></nav>
-
+<header>Chwilowo wszystko obsługuje jeden pracownik o ID 0 <!--hardcode w konstruktorach RentForm--></header>
 <div style="margin: 20px">
     <table >
         <tr style="background: aqua">
@@ -17,7 +17,6 @@
             <th>Typ</th>
             <th>cena/dzień</th>
             <th>Status</th>
-
         </tr>
         <tr th:each="item : ${equipments}">
             <td th:text="${item.id}" ></td>
@@ -32,10 +31,51 @@
             <td th:unless="${item.status == 'AVAILABLE'}" style="color: #e0ffff; display: block">Niedostepny</td>
 
         </tr>
-
-
     </table>
 </div>
+
+<div style="padding: 40px;
+    border: groove blue;">
+    <form action="#" th:action="@{/rents}" th:object="${rentForm}" method="post">
+        <p>Nr identyfikacyjny klienta
+            <input type="text" th:field="*{clientId}" placeholder="id<5">
+        </p>
+        <p>Nr Identyfikacyjny "maszyny"
+            <input type="text" th:field="*{equipmentId}" placeholder="upewnij się,że wynajmujesz dostępny sprzęt">
+        </p>
+        <p>
+            <input type="submit" value="Potwierdź"/>
+            <input type="reset" value="Wyczyść"/>
+        </p>
+    </form>
+</div>
+
+<!--<div>-->
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>Imię</th>-->
+<!--            <th>Nazwisko</th>-->
+<!--            <th>E-mail</th>-->
+<!--            <th>Adres</th>-->
+<!--            <th>Firma</th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td th:text="${client.id}">ID</td>-->
+<!--            <td th:text="${client.name}">Imię</td>-->
+<!--            <td th:text="${client.surname}">Nazwisko</td>-->
+<!--            <td th:text="${client.email}">E-mail</td>-->
+<!--            <td th:text="${client.address}">Adres</td>-->
+<!--            <td th:text="${client.company}">Firma</td>-->
+<!--        </tr>-->
+<!--&lt;!&ndash;-->
+<!--            powtórzyć pola rentEntity-->
+<!--            rozwarzyć wystawienie wypozyczenia w JSONie-->
+<!--&ndash;&gt;-->
+<!--    </table>-->
+<!--</div>-->
+<!--bez tej tabeli po odświerzeniu nie pokazuje się lista dostępnych maszyn, ale działa-->
+<!--obecność tej tabeli powoduje 500 po przesłaniu formularza, choć on sam działa poprawnie-->
 
 <footer th:replace="footer"> footer</footer>
 </body>
