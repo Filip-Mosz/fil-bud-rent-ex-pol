@@ -11,12 +11,12 @@ public class RentForm {
         this.employeeId = employeeId;
         this.estimatedDateOfReturn = estimatedDateOfReturn;
         this.dateOfRent = Date.valueOf(LocalDate.now());
-        this.employeeId = 0L;
     }
+
+
 
     public RentForm() {
         this.dateOfRent = Date.valueOf(LocalDate.now());
-        this.employeeId = 0L;
     }
 
     private Long clientId;
@@ -64,6 +64,8 @@ public class RentForm {
         this.estimatedDateOfReturn = estimatedDateOfReturn;
         return this;
     }
+
+
 }
 
 

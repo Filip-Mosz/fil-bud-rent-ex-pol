@@ -41,12 +41,6 @@ public class RentsController {
     private final ClientRepository clientRepository;
     private final EmployeeRepository employeeRepository;
 
-    ClientEntity chosenClient = new ClientEntity()
-            .setId(404L)
-            .setAddress("Neverland")
-            .setName("Peter")
-            .setSurname("Pan");
-
     @GetMapping("/rents")
     public String getRents(Model model, RentForm rentForm) {
 
@@ -55,27 +49,27 @@ public class RentsController {
         model.addAttribute("rentForm", rentForm);
         model.addAttribute("equipments", machines);
 //        chosenClient ma tu właściwe wartości
-        model.addAttribute("client", chosenClient);
 
         return "/rents";
     }
 
-    @PostMapping("/rents") //delete candidate
+    @PostMapping("/rents")
     public RentForm findClient( RentForm rentForm, Model model) {
+        List<EquipmentEntity> machines = rentService.getAll();
         model.addAttribute("rentForm", rentForm);
-        this.chosenClient = clientService.identifyClient(rentForm);
+        model.addAttribute("equipments", machines);
 //        właściwie wchodzi z formularza
         return rentForm;
     }
 
-    @GetMapping("/rents/{id}}") //to może tak nie działać
+    @GetMapping("/rents/{id}") //do użycia z listą, wyświetla każdy jej element
     public String getSingleRent(@PathVariable("id") RentForm rentForm, String id, Model model) {
         RentEntity newRent = rentRepository.save(createRent(rentForm));
 
         Optional<RentEntity> singleRent = rentRepository.findById(Long.getLong(id));
         model.addAttribute("rent", singleRent);
         model.addAttribute("newRent", newRent);
-        return "rent";
+        return "/rent";
     }
         // TODO: 19.01.2021 wygenerować rentEntity na podstronie odpowiadającej id wypozyczenia
 
@@ -85,10 +79,7 @@ public class RentsController {
         Optional<ClientEntity> clientId = clientRepository.findById(rentForm.getClientId());
         Optional<EmployeeEntity> employeeId = employeeRepository.findById(rentForm.getEmployeeId());
 
-        if(machineId.isPresent()){
-        EquipmentEntity borrowedMachine = machineId.get();
-        equipmentRepository.save(borrowedMachine.setStatus(StatusEnum.BORROWED.toString()));
-        }
+        machineId.ifPresent(rentService::rentEquipment);
 
         return new RentEntity()
                 .setMachineId(machineId.orElse(new EquipmentEntity()))
