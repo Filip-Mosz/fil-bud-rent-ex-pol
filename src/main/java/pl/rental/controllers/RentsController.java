@@ -59,6 +59,11 @@ public class RentsController {
         model.addAttribute("rentForm", rentForm);
         model.addAttribute("equipments", machines);
 //        właściwie wchodzi z formularza
+        RentEntity newRent = rentRepository.save(createRent(rentForm));
+
+        Optional<RentEntity> singleRent = rentRepository.findById(newRent.getId());
+        model.addAttribute("rent", singleRent);
+        model.addAttribute("newRent", newRent);
         return rentForm;
     }
 
