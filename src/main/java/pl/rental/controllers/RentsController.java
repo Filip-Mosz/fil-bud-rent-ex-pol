@@ -10,6 +10,7 @@ import pl.rental.entities.ClientEntity;
 import pl.rental.entities.EmployeeEntity;
 import pl.rental.entities.EquipmentEntity;
 import pl.rental.entities.RentEntity;
+import pl.rental.enums.StatusEnum;
 import pl.rental.repositories.ClientRepository;
 import pl.rental.repositories.EmployeeRepository;
 import pl.rental.repositories.EquipmentRepository;
@@ -67,22 +68,27 @@ public class RentsController {
         return rentForm;
     }
 
-//        // TODO: 19.01.2021 wygenerować rentEntity na podstronie odpowiadającej id wypozyczenia
-//    @GetMapping("/rents/{id}}")
-//    public String getSingleRent(@PathVariable("id") RentForm rentForm, String id, Model model) {
-//        RentEntity newRent = createRent(rentForm);
-//
-//        Optional<RentEntity> singleRent = rentRepository.findById(Long.getLong(id));
-////todo tu pracuję -> trzeba tak zaczarować, żeby thymeleaf miał z czego wygenerowac dane wypożyczenia
-//        model.addAttribute("rent", singleRent);
-//        return "rent";
-//    }
+    @GetMapping("/rents/{id}}") //to może tak nie działać
+    public String getSingleRent(@PathVariable("id") RentForm rentForm, String id, Model model) {
+        RentEntity newRent = rentRepository.save(createRent(rentForm));
+
+        Optional<RentEntity> singleRent = rentRepository.findById(Long.getLong(id));
+        model.addAttribute("rent", singleRent);
+        model.addAttribute("newRent", newRent);
+        return "rent";
+    }
+        // TODO: 19.01.2021 wygenerować rentEntity na podstronie odpowiadającej id wypozyczenia
 
     private RentEntity createRent(RentForm rentForm) {
         Optional<EquipmentEntity> machineId = equipmentRepository.findById(rentForm.getEquipmentId());
         Date estDate = Date.valueOf(rentForm.getEstimatedDateOfReturn());
         Optional<ClientEntity> clientId = clientRepository.findById(rentForm.getClientId());
         Optional<EmployeeEntity> employeeId = employeeRepository.findById(rentForm.getEmployeeId());
+
+        if(machineId.isPresent()){
+        EquipmentEntity borrowedMachine = machineId.get();
+        equipmentRepository.save(borrowedMachine.setStatus(StatusEnum.BORROWED.toString()));
+        }
 
         return new RentEntity()
                 .setMachineId(machineId.orElse(new EquipmentEntity()))
