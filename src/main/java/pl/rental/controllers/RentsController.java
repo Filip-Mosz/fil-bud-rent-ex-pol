@@ -74,7 +74,6 @@ public class RentsController {
 
         Optional<RentEntity> singleRent = rentRepository.findById(Long.getLong(id));
         model.addAttribute("rent", singleRent);
-        model.addAttribute("newRent", newRent);
         return "/rent";
     }
         // TODO: 19.01.2021 wygenerować rentEntity na podstronie odpowiadającej id wypozyczenia

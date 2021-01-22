@@ -15,7 +15,11 @@
         <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">
             <p>Nr identyfikacyjny wypożyczenia
             </p>
-            <input type="text" th:field="*{rentId}" placeholder="id<10">
+            <input type="text" th:field="*{rentId}" placeholder="id<12 najlepiej 11">
+            <p>
+            <p>Nr identyfikacyjny pracownika <!-- zastąpić logowaniem pracownika -->
+            </p>
+            <input type="text" th:field="*{employeeId}" placeholder="id<4">
             <p>
                 <input type="submit" value="Potwierdź"/>
                 <input type="reset" value="Wyczyść"/>
@@ -42,6 +46,10 @@
 </div>
 
 <p>tu może być odpowiedź aplikacji i dalsza logika -> np.: "plik potwierdzenia zwrotu"</p>
+<p>element formularza</p>
+<p th:text="${returnForm.employeeId}">treść</p>
+<p th:text="${returnForm.dateOfReturn}">treść</p>
+<p th:text="${returnForm.rentId}">treść</p>
 
 <footer th:replace="footer"> footer</footer>
 </body>
