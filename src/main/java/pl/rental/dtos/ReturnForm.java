@@ -1,47 +1,32 @@
 package pl.rental.dtos;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class ReturnForm {
-    public ReturnForm(String name, String surname, Long rentId, Long clientId) {
-        this.name = name;
-        this.surname = surname;
+    public ReturnForm(Long rentId, Long clientId) {
+        this.dateOfReturn = Date.valueOf(LocalDate.now());
         this.rentId = rentId;
-        this.clientId = clientId;
+        this.employeeId = clientId;
     }
 
     public ReturnForm() {
+        this.dateOfReturn = Date.valueOf(LocalDate.now());
     }
 
-    private String name;
-    private String surname;
+    private Date dateOfReturn;
     private Long rentId;
-    private Long clientId;
+    private Long employeeId;
 
-    public Long getClientId() {
-        return clientId;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public ReturnForm setClientId(Long clientId) {
-        this.clientId = clientId;
+    public ReturnForm setEmployeeId(Long clientId) {
+        this.employeeId = clientId;
         return this;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public ReturnForm setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public ReturnForm setSurname(String surname) {
-        this.surname = surname;
-        return this;
-    }
 
     public Long getRentId() {
         return rentId;

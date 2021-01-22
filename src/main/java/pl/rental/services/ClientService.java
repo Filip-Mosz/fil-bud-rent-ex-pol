@@ -18,8 +18,8 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     public ClientEntity identifyClient(ReturnForm form) {
-        if (form.getClientId() != null) {
-            Optional<ClientEntity> foundClient = clientRepository.findById(form.getClientId());
+        if (form.getEmployeeId() != null) {
+            Optional<ClientEntity> foundClient = clientRepository.findById(form.getEmployeeId());
 
             if (foundClient.isPresent()) {
                 return foundClient.orElseGet(ClientEntity::new);

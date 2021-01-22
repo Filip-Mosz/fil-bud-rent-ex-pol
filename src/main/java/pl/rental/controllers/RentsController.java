@@ -67,6 +67,7 @@ public class RentsController {
         return rentForm;
     }
 
+    // TODO: 21.01.2021 rozważyć usunięcie poniższego i napisać html dla danych wypożyczenia
     @GetMapping("/rents/{id}") //do użycia z listą, wyświetla każdy jej element
     public String getSingleRent(@PathVariable("id") RentForm rentForm, String id, Model model) {
         RentEntity newRent = rentRepository.save(createRent(rentForm));

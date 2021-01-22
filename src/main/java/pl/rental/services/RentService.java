@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class RentService {
+    // TODO: 22.01.2021 Use DTO'S
+    // TODO: 22.01.2021 UNIT TESTS
 
     private final EquipmentRepository equipmentRepository;
 
