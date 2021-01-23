@@ -43,7 +43,18 @@ class ReturnsController {
         model.addAttribute("return", singleReturn);
         return returnForm;
     }
-
+//public RentForm findClient( RentForm rentForm, Model model) {
+//        List<EquipmentEntity> machines = rentService.getAll();
+//        model.addAttribute("rentForm", rentForm);
+//        model.addAttribute("equipments", machines);
+////        właściwie wchodzi z formularza
+//        RentEntity newRent = rentRepository.save(rentService.createRent(rentForm));
+//
+//        Optional<RentEntity> singleRent = rentRepository.findById(newRent.getId());
+//        model.addAttribute("rent", singleRent);
+//        model.addAttribute("newRent", newRent);
+//        return rentForm;
+//    }
 
 
 }

@@ -8,18 +8,20 @@ import pl.rental.repositories.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 
 @Service
 public class ReturnService {
 
-    public ReturnService(ReturnRepository returnRepository, ClientService clientService, EquipmentRepository equipmentRepository, EmployeeRepository employeeRepository, ClientRepository clientRepository) {
+    public ReturnService(ReturnRepository returnRepository, ClientService clientService, EquipmentRepository equipmentRepository, EmployeeRepository employeeRepository, ClientRepository clientRepository, RentRepository rentRepository) {
         this.returnRepository = returnRepository;
         this.clientService = clientService;
         this.equipmentRepository = equipmentRepository;
         this.employeeRepository = employeeRepository;
         this.clientRepository = clientRepository;
+        this.rentRepository = rentRepository;
     }
 
     private final ReturnRepository returnRepository;
@@ -27,6 +29,7 @@ public class ReturnService {
     private final EquipmentRepository equipmentRepository;
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
+    private final RentRepository rentRepository;
 
     public ReturnEntity createReturnEntity(ReturnForm form) {
         if (form.getRentId() != null) {
@@ -59,14 +62,18 @@ public class ReturnService {
         Date dateOfReturn;
         Long delayInDays;
 
-        Optional<ReturnEntity> currentRent = returnRepository.findById(returnForm.getRentId());
+        Optional<RentEntity> currentRent = rentRepository.findById(returnForm.getRentId());
         if (currentRent.isPresent()) {
-            rentId = currentRent.get().getRentId();
+            rentId = currentRent.get();
             machineId = currentRent.get().getMachineId();
-            dateOfReturn = currentRent.get().getDateOfReturn();
+            dateOfReturn = currentRent.get().getEstimatedDateOfReturn();
             delayInDays = getDatesDifference(dateOfReturn);
             Optional<ClientEntity> clientIdSupply = clientRepository.findById(currentRent.get().getClientId().getId());
             clientId = clientIdSupply.orElseGet(ClientEntity::new);
+
+            Optional<EquipmentEntity> machineThing = equipmentRepository.findById(machineId.getId());
+            machineThing.ifPresent(this::returnEquipment);
+            Optional<EquipmentEntity> rentedMachine = equipmentRepository.findById(machineId.getId());
         } else {
             rentId = null;
             machineId = null;
@@ -76,8 +83,7 @@ public class ReturnService {
         }
 
         Optional<EmployeeEntity> employeeIdSupply = employeeRepository.findById(returnForm.getEmployeeId());
-        employeeId = employeeIdSupply.orElseGet(EmployeeEntity::new);
-
+        employeeId = employeeIdSupply.orElseThrow();
 
         return new ReturnEntity()
                 .setRentId(rentId)
@@ -90,29 +96,15 @@ public class ReturnService {
     }
 
     private Long getDatesDifference(Date dateOfReturn) {
-        Long variableToReturn = Long.getLong(
-                dateOfReturn.toLocalDate().toString());
 
-        if (dateOfReturn.toLocalDate().isAfter(LocalDate.now())) {
+        if (LocalDate.now().isAfter(dateOfReturn.toLocalDate()))   {
             //i tu odejmujemy daty
-    LocalDate convertedDateOfReturn = LocalDate.from((TemporalAccessor) dateOfReturn);
-    return (long) convertedDateOfReturn.compareTo(LocalDate.now());
+
+            LocalDate convertedDateOfReturn = dateOfReturn.toLocalDate();
+            return ChronoUnit.DAYS.between(convertedDateOfReturn, LocalDate.now());
         }
 
         return 0L;
     }
-//        Date estDate = Date.valueOf(rentForm.getEstimatedDateOfReturn());
-//        Optional<ClientEntity> clientId = clientRepository.findById(rentForm.getClientId());
-//        Optional<EmployeeEntity> employeeId = employeeRepository.findById(rentForm.getEmployeeId());
-//
-//        machineId.ifPresent(this::rentEquipment);
-//
-//        return new RentEntity()
-//                .setMachineId(machineId.orElse(new EquipmentEntity()))
-//                .setEstimatedDateOfReturn(estDate)
-//                .setDateOfRent(rentForm.getDateOfRent())
-//                .setClientId(clientId.orElse(new ClientEntity()))
-//                .setEmployeeId(employeeId.orElse(new EmployeeEntity()))
-//                ;
-//    }
+
 }

@@ -11,6 +11,7 @@ import pl.rental.enums.StatusEnum;
 import pl.rental.repositories.ClientRepository;
 import pl.rental.repositories.EmployeeRepository;
 import pl.rental.repositories.EquipmentRepository;
+import pl.rental.repositories.RentRepository;
 
 import java.sql.Date;
 import java.util.List;
@@ -26,21 +27,22 @@ public class RentService {
     private final EquipmentRepository equipmentRepository;
     private final ClientRepository clientRepository;
     private final EmployeeRepository employeeRepository;
+    private final RentRepository rentRepository;
 
 
-    public List<EquipmentEntity> getAvailableByBrand(String brand){
+    public List<EquipmentEntity> getAvailableByBrand(String brand) {
         return equipmentRepository.findAllByBrand(brand).stream()
-        .filter(e -> e.getStatus().equals(StatusEnum.AVAILABLE.toString()))
-        .collect(Collectors.toList());
+                .filter(e -> e.getStatus().equals(StatusEnum.AVAILABLE.toString()))
+                .collect(Collectors.toList());
     }
 
-    public List<EquipmentEntity> getAllAvailable(){
+    public List<EquipmentEntity> getAllAvailable() {
         return equipmentRepository.findAll().stream()
                 .filter(e -> e.getStatus().equals(StatusEnum.AVAILABLE.toString()))
                 .collect(Collectors.toList());
     }
 
-    public void rentEquipment(EquipmentEntity machine){
+    public void rentEquipment(EquipmentEntity machine) {
         Optional<EquipmentEntity> foundMachine = equipmentRepository.findById(machine.getId());
 
         EquipmentEntity rentedMachine = foundMachine.orElseGet(EquipmentEntity::new);
@@ -60,12 +62,11 @@ public class RentService {
 
         machineId.ifPresent(this::rentEquipment);
 
-        return new RentEntity()
+        return rentRepository.save(new RentEntity()
                 .setMachineId(machineId.orElse(new EquipmentEntity()))
                 .setEstimatedDateOfReturn(estDate)
                 .setDateOfRent(rentForm.getDateOfRent())
                 .setClientId(clientId.orElse(new ClientEntity()))
-                .setEmployeeId(employeeId.orElse(new EmployeeEntity()))
-                ;
+                .setEmployeeId(employeeId.orElse(new EmployeeEntity())));
     }
 }

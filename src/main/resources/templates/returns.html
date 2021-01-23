@@ -27,22 +27,23 @@
         </form>
     </div>
 
-    <div>
-        <p>LUB</p>
-    </div>
+<!--    <div>-->
+<!--        <p>LUB</p>-->
+<!--    </div>-->
 
-    <div style="padding: 40px;
-    border: groove blue;">
-        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">
-            <p>Nr identyfikacyjny klienta
-                <input type="text" th:field="*{employeeId}" placeholder="in development">
-            </p>
-            <p>
-                <input type="submit" value="Potwierdź"/>
-                <input type="reset" value="Wyczyść"/>
-            </p>
-        </form>
-    </div>
+<!--    <div style="padding: 40px;-->
+<!--    border: groove blue;">-->
+<!--        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">-->
+<!--            <p>Nr identyfikacyjny klienta-->
+<!--                <input type="text" th:field="*{employeeId}" placeholder="in development">-->
+<!--                <br><u style="color: red">nie zaimplementowane - generuje błąd 500</u>-->
+<!--            </p>-->
+<!--            <p>-->
+<!--                <input type="submit" value="Potwierdź"/>-->
+<!--                <input type="reset" value="Wyczyść"/>-->
+<!--            </p>-->
+<!--        </form>-->
+<!--    </div>-->
 </div>
 
 <p>tu może być odpowiedź aplikacji i dalsza logika -> np.: "plik potwierdzenia zwrotu"</p>
@@ -50,6 +51,32 @@
 <p th:text="${returnForm.employeeId}">treść</p>
 <p th:text="${returnForm.dateOfReturn}">treść</p>
 <p th:text="${returnForm.rentId}">treść</p>
+<table>
+    <tr>
+        <th><b>Zmienna</b></th>
+        <th><b>Wartość</b></th>
+    </tr>
+    <tr>
+        <td>id wyporzyczenia</td>
+        <td th:text="${returnForm.rentId}"></td>
+    </tr>
+    <tr>
+        <td>maszyna</td>
+        <td th:text="${returnForm}"></td>
+    </tr>
+    <tr>
+        <td>klient</td>
+    </tr>
+    <tr>
+        <td>pracownik przyjmujący odbiór</td>
+    </tr>
+    <tr>
+        <td>ustalona data zwrotu</td>
+    </tr>
+    <tr>
+        <td>opóźnienie zwrotu</td>
+    </tr>
+</table>
 
 <footer th:replace="footer"> footer</footer>
 </body>
