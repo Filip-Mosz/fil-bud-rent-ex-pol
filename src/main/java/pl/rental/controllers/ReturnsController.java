@@ -28,24 +28,16 @@ class ReturnsController {
         List<ReturnEntity> returnEntityList = returnRepository.findAll();
 
         model.addAttribute("returnForm", returnForm);
+        model.addAttribute("returnsList", returnEntityList);
 
         return "returns";
     }
-//@GetMapping("/rents")
-//    public String getRents(Model model, RentForm rentForm) {
-//
-//        List<EquipmentEntity> machines = rentService.getAll();
-//
-//        model.addAttribute("rentForm", rentForm);
-//        model.addAttribute("equipments", machines);
-//
-//        return "/rents";
-//    }
+
 
     @PostMapping("/returns")
     public ReturnForm newReturnForm(@ModelAttribute ReturnForm returnForm, Model model){
         model.addAttribute("returnForm", returnForm);
-        ReturnEntity newReturn = returnRepository.save(createReturn(returnForm));
+        ReturnEntity newReturn = returnRepository.save(returnService.createReturn(returnForm));
 
         Optional<ReturnEntity> singleReturn = returnRepository.findById(newReturn.getId());
         model.addAttribute("return", singleReturn);
@@ -53,15 +45,5 @@ class ReturnsController {
     }
 
 
-//    @PostMapping("/rents")
-//    public RentForm findClient( RentForm rentForm, Model model) {
-//
-//
-//        Optional<RentEntity> singleRent = rentRepository.findById(newRent.getId()); //plik wynajmu wraca z bazy ważne!
-//        model.addAttribute("rent", singleRent); //plik wynajmu leci na front
-//        return rentForm;
-//    }
-    private ReturnEntity createReturn(ReturnForm returnForm) {
-        return new ReturnEntity();
-    }
+
 }

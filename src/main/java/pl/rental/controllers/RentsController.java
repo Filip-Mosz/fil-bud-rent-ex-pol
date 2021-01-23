@@ -59,7 +59,7 @@ public class RentsController {
         model.addAttribute("rentForm", rentForm);
         model.addAttribute("equipments", machines);
 //        właściwie wchodzi z formularza
-        RentEntity newRent = rentRepository.save(createRent(rentForm));
+        RentEntity newRent = rentRepository.save(rentService.createRent(rentForm));
 
         Optional<RentEntity> singleRent = rentRepository.findById(newRent.getId());
         model.addAttribute("rent", singleRent);
@@ -70,28 +70,11 @@ public class RentsController {
     // TODO: 21.01.2021 rozważyć usunięcie poniższego i napisać html dla danych wypożyczenia
     @GetMapping("/rents/{id}") //do użycia z listą, wyświetla każdy jej element
     public String getSingleRent(@PathVariable("id") RentForm rentForm, String id, Model model) {
-        RentEntity newRent = rentRepository.save(createRent(rentForm));
+        RentEntity newRent = rentRepository.save(rentService.createRent(rentForm));
 
         Optional<RentEntity> singleRent = rentRepository.findById(Long.getLong(id));
         model.addAttribute("rent", singleRent);
         return "/rent";
     }
-        // TODO: 19.01.2021 wygenerować rentEntity na podstronie odpowiadającej id wypozyczenia
 
-    private RentEntity createRent(RentForm rentForm) {
-        Optional<EquipmentEntity> machineId = equipmentRepository.findById(rentForm.getEquipmentId());
-        Date estDate = Date.valueOf(rentForm.getEstimatedDateOfReturn());
-        Optional<ClientEntity> clientId = clientRepository.findById(rentForm.getClientId());
-        Optional<EmployeeEntity> employeeId = employeeRepository.findById(rentForm.getEmployeeId());
-
-        machineId.ifPresent(rentService::rentEquipment);
-
-        return new RentEntity()
-                .setMachineId(machineId.orElse(new EquipmentEntity()))
-                .setEstimatedDateOfReturn(estDate)
-                .setDateOfRent(rentForm.getDateOfRent())
-                .setClientId(clientId.orElse(new ClientEntity()))
-                .setEmployeeId(employeeId.orElse(new EmployeeEntity()))
-                ;
-    }
 }
