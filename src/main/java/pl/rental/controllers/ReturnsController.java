@@ -23,11 +23,12 @@ class ReturnsController {
     private final ReturnRepository returnRepository;
     private final ReturnService returnService;
 
+    Long newReturnId = 0L;
+
     @GetMapping("/returns")
     public String getReturns(Model model) {
         List<ReturnEntity> returnEntityList = returnRepository.findAll();
-        System.err.println("długość listy zwrotów" + returnEntityList.size());
-        ReturnEntity lastReturn = returnEntityList.get(returnEntityList.size()-1);
+        ReturnEntity lastReturn = returnRepository.findById(newReturnId).orElseGet(ReturnEntity::new);
 
         model.addAttribute("returnForm", new ReturnForm());
         model.addAttribute("returnsList", returnEntityList);
@@ -41,6 +42,7 @@ class ReturnsController {
     public String newReturnForm(@ModelAttribute ReturnForm returnForm, Model model){
         model.addAttribute("returnForm", returnForm);
         ReturnEntity newReturn = returnRepository.save(returnService.createReturn(returnForm));
+        newReturnId = newReturn.getId();
         List<ReturnEntity> returnEntityList = returnRepository.findAll();
         model.addAttribute("returnsList", returnEntityList);
 

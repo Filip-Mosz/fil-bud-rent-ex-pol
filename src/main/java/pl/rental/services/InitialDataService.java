@@ -60,7 +60,7 @@ public class InitialDataService implements CommandLineRunner {
                 .setModel("Pan Twardeusz")
                 .setType("Zagęszczarka do betonu")
                 .setPrizeForDay(50L)
-                .setStatus(StatusEnum.AVAILABLE.toString());
+                .setStatus(StatusEnum.BORROWED.toString());
         EquipmentEntity equ02 = new EquipmentEntity()
                 .setBrand("Makiła")
                 .setModel("Pan Twardeusz")

@@ -12,7 +12,8 @@
         justify-content: space-evenly">
     <div style="padding: 40px;
     border: groove blue;">
-        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post"> <!-- tu dać na inną stronę - return (+ slajd 16 przezentacji) -->
+        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">
+            <!-- tu dać na inną stronę - return (+ slajd 16 przezentacji) -->
             <p>Nr identyfikacyjny wypożyczenia
             </p>
             <input type="text" th:field="*{rentId}" placeholder="id<12 najlepiej 11">
@@ -27,49 +28,113 @@
         </form>
     </div>
 
-<!--    <div>-->
-<!--        <p>LUB</p>-->
-<!--    </div>-->
+    <!--    <div>-->
+    <!--        <p>LUB</p>-->
+    <!--    </div>-->
 
-<!--    <div style="padding: 40px;-->
-<!--    border: groove blue;">-->
-<!--        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">-->
-<!--            <p>Nr identyfikacyjny klienta-->
-<!--                <input type="text" th:field="*{employeeId}" placeholder="in development">-->
-<!--                <br><u style="color: red">nie zaimplementowane - generuje błąd 500</u>-->
-<!--            </p>-->
-<!--            <p>-->
-<!--                <input type="submit" value="Potwierdź"/>-->
-<!--                <input type="reset" value="Wyczyść"/>-->
-<!--            </p>-->
-<!--        </form>-->
-<!--    </div>-->
+    <!--    <div style="padding: 40px;-->
+    <!--    border: groove blue;">-->
+    <!--        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">-->
+    <!--            <p>Nr identyfikacyjny klienta-->
+    <!--                <input type="text" th:field="*{employeeId}" placeholder="in development">-->
+    <!--                <br><u style="color: red">nie zaimplementowane - generuje błąd 500</u>-->
+    <!--            </p>-->
+    <!--            <p>-->
+    <!--                <input type="submit" value="Potwierdź"/>-->
+    <!--                <input type="reset" value="Wyczyść"/>-->
+    <!--            </p>-->
+    <!--        </form>-->
+    <!--    </div>-->
 </div>
 
-<p>tu może być odpowiedź aplikacji i dalsza logika -> np.: "plik potwierdzenia zwrotu"</p>
-<p></p>
-<table th:if="${lastReturn != null}">
+<p>"plik potwierdzenia zwrotu"</p>
+<table th:if="${returnsList.size() == lastReturn.id}"> <!-- prawie dobrze, lista rozwijana? i usunąć warunek? -->
+    <!--    <tr>-->
+    <!--        <th><b>Zmienna</b></th>-->
+    <!--        <th><b>Wartość</b></th>-->
+    <!--    </tr>-->
     <tr>
-        <th><b>Zmienna</b></th>
-        <th><b>Wartość</b></th>
-    </tr>
+        <th th:text="'Wypożyczenie id:' + ${lastReturn.id}"></th>
     <tr>
-        <th><b>ID</b></th>
-        <th th:text="${lastReturn.id}"><b>Zmienna</b></th>
-    </tr>
-    <tr>
-        <th><b>opóźnienie</b></th>
-        <th th:text="${lastReturn.delayInDays}"><b>Zmienna</b></th>
-    </tr>
-<!--    <tr th:each="element : ${returnsList}">-->
-<!--        <td>id wyporzyczenia</td>-->
-<!--        <td th:text="${element.id}"></td>-->
-<!--        <td th:text="${element.machineId.brand}"></td>-->
-<!--        <td th:text="${element.machineId.model}"></td>-->
+        <td>
+            <table style="border: double #505050">
+                <tr> Dane Klienta
+                    <th>Imię</th>
+                    <th>Mazwisko</th>
+                    <th>Adres</th>
+                    <th>E-Mail</th>
+                    <th>Firma</th>
+                </tr>
+                <tr>
+                    <td th:text="${lastReturn.clientId.name}">Imię</td>
+                    <td th:text="${lastReturn.clientId.surname}">Nazwisko</td>
+                    <td th:text="${lastReturn.clientId.address}">Adres</td>
+                    <td th:text="${lastReturn.clientId.email}">E-Mail</td>
+                    <td th:text="${lastReturn.clientId.company}">Firma</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table style="border: double #505050">
 
-<!--    </tr>-->
+                <tr> Przedmiot Wynajmu
+                    <th>ID</th>
+                    <th>Marka</th>
+                    <th>Model</th>
+                    <th>Typ</th>
+                    <th>Cena/Dzień</th>
+                </tr>
+                <tr>
+                    <td th:text="${lastReturn.machineId.id}">ID</td>
+                    <td th:text="${lastReturn.machineId.brand}">Marka</td>
+                    <td th:text="${lastReturn.machineId.model}">Model</td>
+                    <td th:text="${lastReturn.machineId.type}">Typ</td>
+                    <td th:text="${lastReturn.machineId.prizeForDay + ' zł'}">Cena/Dzień</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table  style="border: double #505050">
+                <tr> Przyjmujący Odbiór
+                    <th>ID</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                </tr>
+                <tr>
+                    <td th:text="${lastReturn.employeeId.id}">ID</td>
+                    <td th:text="${lastReturn.employeeId.name}">Imię</td>
+                    <td th:text="${lastReturn.employeeId.surname}">Nazwisko</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <table style="border: double #505050">
+        <tr>
+            <th>Przewidziana data zwrotu</th>
+            <th>Data zwrotu</th>
+            <th>Dni zwłoki</th>
+            <th>Opłata dodatkowa</th>
+            <th>Wartość końcowa</th>
+        </tr>
+        <tr>
+            <td th:text="${#dates.format(lastReturn.rentId.estimatedDateOfReturn, 'dd-MM-yyyy')}">Przewidziana data zwrotu</td>
+            <td th:text="${#dates.format(#dates.createNow(), 'dd-MM-yyyy')}"> Data zwrotu</td>
+            <td th:text="${lastReturn.delayInDays.toString()}">Dni zwłoki</td>
+            <!--   replace properly with field of returnObject     -->
+            <td th:text="${((lastReturn.delayInDays*lastReturn.machineId.prizeForDay)) * 0.3}">Opłata dodatkowa</td>
+            <td th:text="${((lastReturn.delayInDays + lastReturn.rentId.estimatedDateOfReturn.compareTo(lastReturn.rentId.dateOfRent)) * lastReturn.machineId.prizeForDay)}"><b>Wartość końcowa</b></td>
+        </tr>
+    </table>
+    <!--    <tr th:each="element : ${returnsList}">-->
+    <!--        <td>id wyporzyczenia</td>-->
+    <!--        <td th:text="${element.id}"></td>-->
+    <!--        <td th:text="${element.machineId.brand}"></td>-->
+    <!--        <td th:text="${element.machineId.model}"></td>-->
+
+    <!--    </tr>-->
 
 </table>
+<p style="color: red">na obecnym etapie koszt jest niewłaściwy z racji braku logiki finansowej</p>
 
 <footer th:replace="footer"> footer</footer>
 </body>
