@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Rent</title>
+    <title th:text="'Zwrot nr:' + ${returnForm.rentId}">Rent</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav th:replace="menu"></nav>
 
 <div style="margin: 20px">
-<h1>podstrona rent</h1>
+<h1>podstrona return</h1>
 </div>
 
 <div>

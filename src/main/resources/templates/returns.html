@@ -12,7 +12,7 @@
         justify-content: space-evenly">
     <div style="padding: 40px;
     border: groove blue;">
-        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post">
+        <form action="#" th:action="@{/returns}" th:object="${returnForm}" method="post"> <!-- tu dać na inną stronę - return (+ slajd 16 przezentacji) -->
             <p>Nr identyfikacyjny wypożyczenia
             </p>
             <input type="text" th:field="*{rentId}" placeholder="id<12 najlepiej 11">
@@ -47,35 +47,28 @@
 </div>
 
 <p>tu może być odpowiedź aplikacji i dalsza logika -> np.: "plik potwierdzenia zwrotu"</p>
-<p>element formularza</p>
-<p th:text="${returnForm.employeeId}">treść</p>
-<p th:text="${returnForm.dateOfReturn}">treść</p>
-<p th:text="${returnForm.rentId}">treść</p>
-<table>
+<p></p>
+<table th:if="${lastReturn != null}">
     <tr>
         <th><b>Zmienna</b></th>
         <th><b>Wartość</b></th>
     </tr>
     <tr>
-        <td>id wyporzyczenia</td>
-        <td th:text="${returnForm.rentId}"></td>
+        <th><b>ID</b></th>
+        <th th:text="${lastReturn.id}"><b>Zmienna</b></th>
     </tr>
     <tr>
-        <td>maszyna</td>
-        <td th:text="${returnForm}"></td>
+        <th><b>opóźnienie</b></th>
+        <th th:text="${lastReturn.delayInDays}"><b>Zmienna</b></th>
     </tr>
-    <tr>
-        <td>klient</td>
-    </tr>
-    <tr>
-        <td>pracownik przyjmujący odbiór</td>
-    </tr>
-    <tr>
-        <td>ustalona data zwrotu</td>
-    </tr>
-    <tr>
-        <td>opóźnienie zwrotu</td>
-    </tr>
+<!--    <tr th:each="element : ${returnsList}">-->
+<!--        <td>id wyporzyczenia</td>-->
+<!--        <td th:text="${element.id}"></td>-->
+<!--        <td th:text="${element.machineId.brand}"></td>-->
+<!--        <td th:text="${element.machineId.model}"></td>-->
+
+<!--    </tr>-->
+
 </table>
 
 <footer th:replace="footer"> footer</footer>

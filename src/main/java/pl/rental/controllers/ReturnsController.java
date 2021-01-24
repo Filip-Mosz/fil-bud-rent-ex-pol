@@ -24,37 +24,29 @@ class ReturnsController {
     private final ReturnService returnService;
 
     @GetMapping("/returns")
-    public String getReturns(Model model, ReturnForm returnForm) {
+    public String getReturns(Model model) {
         List<ReturnEntity> returnEntityList = returnRepository.findAll();
+        System.err.println("długość listy zwrotów" + returnEntityList.size());
+        ReturnEntity lastReturn = returnEntityList.get(returnEntityList.size()-1);
 
-        model.addAttribute("returnForm", returnForm);
+        model.addAttribute("returnForm", new ReturnForm());
         model.addAttribute("returnsList", returnEntityList);
+        model.addAttribute("lastReturn", lastReturn);
 
         return "returns";
     }
 
 
     @PostMapping("/returns")
-    public ReturnForm newReturnForm(@ModelAttribute ReturnForm returnForm, Model model){
+    public String newReturnForm(@ModelAttribute ReturnForm returnForm, Model model){
         model.addAttribute("returnForm", returnForm);
         ReturnEntity newReturn = returnRepository.save(returnService.createReturn(returnForm));
+        List<ReturnEntity> returnEntityList = returnRepository.findAll();
+        model.addAttribute("returnsList", returnEntityList);
 
         Optional<ReturnEntity> singleReturn = returnRepository.findById(newReturn.getId());
         model.addAttribute("return", singleReturn);
-        return returnForm;
+        return "redirect:/returns";
     }
-//public RentForm findClient( RentForm rentForm, Model model) {
-//        List<EquipmentEntity> machines = rentService.getAll();
-//        model.addAttribute("rentForm", rentForm);
-//        model.addAttribute("equipments", machines);
-////        właściwie wchodzi z formularza
-//        RentEntity newRent = rentRepository.save(rentService.createRent(rentForm));
-//
-//        Optional<RentEntity> singleRent = rentRepository.findById(newRent.getId());
-//        model.addAttribute("rent", singleRent);
-//        model.addAttribute("newRent", newRent);
-//        return rentForm;
-//    }
-
 
 }
