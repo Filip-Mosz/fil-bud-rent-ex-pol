@@ -1,6 +1,7 @@
 package pl.rental.dtos;
 
 public class EquipmentDto {
+    Long id;
     String brand;
     String model;
     String type;
@@ -16,6 +17,15 @@ public class EquipmentDto {
         this.type = type;
         this.status = status;
         this.prizeForDay = prizeForDay;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public EquipmentDto setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getBrand() {

@@ -19,12 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ReturnMapperTest {
 
     ReturnDto testReturnDto = new ReturnDto()
-            .setMachineId(
-                    new EquipmentDto("Makiła", "XXL", "Zagęszczarka do betonu", StatusEnum.AVAILABLE.toString(), 15L)
-            )
-            .setClientId(
-                    new ClientDto("Roman", "Romawov", null, "Narnia", null)
-            )
             .setEmployeeId(
                     new EmployeeDto("Jan", "Kowalski", PositionEnum.REGULAR.toString())
             )
@@ -62,7 +56,6 @@ public class ReturnMapperTest {
         ReturnDto test = ReturnMapper.toDto(testReturnEntity);
         //then
         assertEquals(test.getDateOfReturn(),testReturnDto.getDateOfReturn());
-        assertEquals(test.getMachineId().getBrand(),testReturnDto.getMachineId().getBrand());
         assertEquals(test.getDelayInDays(),testReturnDto.getDelayInDays());
     }
 }

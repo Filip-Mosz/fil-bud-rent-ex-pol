@@ -9,11 +9,12 @@ import pl.rental.repositories.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 
 @Service
 public class ReturnService {
+    // TODO: 30.01.2021 USE DTOS 
+    // TODO: 30.01.2021 UNIT TESTS
 
     public ReturnService(ReturnRepository returnRepository, ClientService clientService, EquipmentRepository equipmentRepository, EmployeeRepository employeeRepository, ClientRepository clientRepository, RentRepository rentRepository) {
         this.returnRepository = returnRepository;
@@ -36,7 +37,6 @@ public class ReturnService {
             return returnRepository.getOne(form.getRentId());
         }
 
-        //        return returnRepository.findFirstByNameAndSurname(form.getName(), form.getSurname());
 //        1.znaleźć klienta
 //        2.przez id klienta znaleźć ostatni wynajem bez pasującego zwrotu
         ClientEntity foundClient = clientService.identifyClient(form);

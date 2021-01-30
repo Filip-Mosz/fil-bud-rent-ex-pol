@@ -108,23 +108,27 @@
             </table>
         </td>
     </tr>
-    <table style="border: double #505050">
-        <tr>
-            <th>Przewidziana data zwrotu</th>
-            <th>Data zwrotu</th>
-            <th>Dni zwłoki</th>
-            <th>Opłata dodatkowa</th>
-            <th>Wartość końcowa</th>
-        </tr>
-        <tr>
-            <td th:text="${#dates.format(lastReturn.rentId.estimatedDateOfReturn, 'dd-MM-yyyy')}">Przewidziana data zwrotu</td>
-            <td th:text="${#dates.format(#dates.createNow(), 'dd-MM-yyyy')}"> Data zwrotu</td>
-            <td th:text="${lastReturn.delayInDays.toString()}">Dni zwłoki</td>
-            <!--   replace properly with field of returnObject     -->
-            <td th:text="${((lastReturn.delayInDays*lastReturn.machineId.prizeForDay)) * 0.3}">Opłata dodatkowa</td>
-            <td th:text="${((lastReturn.delayInDays + lastReturn.rentId.estimatedDateOfReturn.compareTo(lastReturn.rentId.dateOfRent)) * lastReturn.machineId.prizeForDay)}"><b>Wartość końcowa</b></td>
-        </tr>
-    </table>
+    <tr>
+        <td>
+            <table style="border: double #505050">
+                <tr>
+                    <th>Przewidziana data zwrotu</th>
+                    <th>Data zwrotu</th>
+                    <th>Dni zwłoki</th>
+                    <th>Opłata dodatkowa</th>
+                    <th>Wartość końcowa</th>
+                </tr>
+                <tr>
+                    <td th:text="${#dates.format(lastReturn.rentId.estimatedDateOfReturn, 'dd-MM-yyyy')}">Przewidziana data zwrotu</td>
+                    <td th:text="${#dates.format(#dates.createNow(), 'dd-MM-yyyy')}"> Data zwrotu</td>
+                    <td th:text="${lastReturn.delayInDays.toString()}">Dni zwłoki</td>
+                    <!--   replace properly with field of returnObject     -->
+                    <td th:text="${((lastReturn.delayInDays*lastReturn.machineId.prizeForDay)) * 0.3}">Opłata dodatkowa</td>
+                    <td th:text="${((lastReturn.delayInDays + lastReturn.rentId.estimatedDateOfReturn.compareTo(lastReturn.rentId.dateOfRent)) * lastReturn.machineId.prizeForDay)}"><b>Wartość końcowa</b></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
     <!--    <tr th:each="element : ${returnsList}">-->
     <!--        <td>id wyporzyczenia</td>-->
     <!--        <td th:text="${element.id}"></td>-->

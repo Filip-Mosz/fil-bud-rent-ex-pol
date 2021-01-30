@@ -5,8 +5,7 @@ import java.sql.Date;
 public class ReturnDto {
 
     private Long id;
-    private EquipmentDto machineId;
-    private ClientDto clientId;
+    private RentDto rentId;
     private EmployeeDto employeeId;
     private Date dateOfReturn;
     private Long delayInDays;
@@ -17,24 +16,6 @@ public class ReturnDto {
 
     public ReturnDto setId(Long id) {
         this.id = id;
-        return this;
-    }
-
-    public EquipmentDto getMachineId() {
-        return machineId;
-    }
-
-    public ReturnDto setMachineId(EquipmentDto machineId) {
-        this.machineId = machineId;
-        return this;
-    }
-
-    public ClientDto getClientId() {
-        return clientId;
-    }
-
-    public ReturnDto setClientId(ClientDto clientId) {
-        this.clientId = clientId;
         return this;
     }
 
@@ -62,6 +43,15 @@ public class ReturnDto {
 
     public ReturnDto setDelayInDays(Long delayInDays) {
         this.delayInDays = delayInDays;
+        return this;
+    }
+
+    public RentDto getRentId() {
+        return rentId;
+    }
+
+    public ReturnDto setRentId(RentDto rentId) {
+        this.rentId = rentId;
         return this;
     }
 }

@@ -11,8 +11,8 @@ public class EquipmentMapper {
                 .setModel(entity.getModel())
                 .setPrizeForDay(entity.getPrizeForDay())
                 .setType(entity.getType())
-                .setStatus(entity.getStatus());
-
+                .setStatus(entity.getStatus())
+                .setId(entity.getId());
     }
 
     public static EquipmentEntity toEntity(EquipmentDto dto){
@@ -21,7 +21,8 @@ public class EquipmentMapper {
                 .setModel(dto.getModel())
                 .setPrizeForDay(dto.getPrizeForDay())
                 .setType(dto.getType())
-                .setStatus(dto.getStatus());
+                .setStatus(dto.getStatus())
+                .setId(dto.getId());
     }
 
 }

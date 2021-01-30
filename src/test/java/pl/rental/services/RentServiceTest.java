@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import pl.rental.dtos.EquipmentDto;
 import pl.rental.entities.EquipmentEntity;
 import pl.rental.enums.StatusEnum;
 
@@ -24,13 +25,13 @@ class RentServiceTest {
     @Test
     void getAvailableByBrand() {
         when(mockedRent.getAvailableByBrand("Prosperplast")).thenReturn(List.of(
-                new EquipmentEntity()
+                new EquipmentDto()
                     .setStatus(StatusEnum.AVAILABLE.toString())
                     .setBrand("Prosperplast"),
-                new EquipmentEntity()
+                new EquipmentDto()
                     .setStatus(StatusEnum.AVAILABLE.toString())
                     .setBrand("Prosperplast"),
-                new EquipmentEntity()
+                new EquipmentDto()
                     .setStatus(StatusEnum.AVAILABLE.toString())
                     .setBrand("Prosperplast")
         ));

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.rental.dtos.EquipmentDto;
 import pl.rental.dtos.RentForm;
 import pl.rental.entities.EquipmentEntity;
 import pl.rental.entities.RentEntity;
@@ -27,7 +28,7 @@ public class RentsController {
     @GetMapping("/rents")
     public String getRents(Model model, RentForm rentForm) {
 
-        List<EquipmentEntity> machines = rentService.getAll();
+        List<EquipmentDto> machines = rentService.getAll();
 
         model.addAttribute("rentForm", rentForm);
         model.addAttribute("equipments", machines);
@@ -36,8 +37,8 @@ public class RentsController {
     }
 
     @PostMapping("/rents")
-    public RentForm createRent(RentForm rentForm, Model model) {
-        List<EquipmentEntity> machines = rentService.getAll();
+    public String createRent(RentForm rentForm, Model model) {
+        List<EquipmentDto> machines = rentService.getAll();
         model.addAttribute("rentForm", rentForm);
         model.addAttribute("equipments", machines);
 //        właściwie wchodzi z formularza
@@ -47,7 +48,7 @@ public class RentsController {
         model.addAttribute("rent", singleRent);
         model.addAttribute("newRent", newRent);
         System.out.println("RentForm wszedł");
-        return rentForm;
+        return "redirect:/rents";
     }
 
 }
