@@ -1,9 +1,11 @@
 package pl.rental.services;
 
 import org.springframework.stereotype.Service;
-import pl.rental.dtos.ReturnForm;
+import pl.rental.dtos.*;
 import pl.rental.entities.*;
 import pl.rental.enums.StatusEnum;
+import pl.rental.mappers.EmployeeMapper;
+import pl.rental.mappers.RentMapper;
 import pl.rental.repositories.*;
 
 import java.sql.Date;
@@ -32,20 +34,6 @@ public class ReturnService {
     private final ClientRepository clientRepository;
     private final RentRepository rentRepository;
 
-    public ReturnEntity createReturnEntity(ReturnForm form) {
-        if (form.getRentId() != null) {
-            return returnRepository.getOne(form.getRentId());
-        }
-
-//        1.znaleźć klienta
-//        2.przez id klienta znaleźć ostatni wynajem bez pasującego zwrotu
-        ClientEntity foundClient = clientService.identifyClient(form);
-        if (foundClient.getName() == null) {
-            return new ReturnEntity();
-        }
-
-        return returnRepository.getOne(foundClient.getId());
-    }
 
     public void returnEquipment(EquipmentEntity machine) {
         Optional<EquipmentEntity> foundMachine = equipmentRepository.findById(machine.getId());
@@ -54,7 +42,7 @@ public class ReturnService {
         equipmentRepository.save(returnedMachine);
     }
 
-    public ReturnEntity createReturn(ReturnForm returnForm) {
+    public ReturnEntity createReturn(ReturnForm returnForm) { //zwraca co ma; nie "naprawiać"
         RentEntity rentId;
         EquipmentEntity machineId;
         EmployeeEntity employeeId;
@@ -97,9 +85,8 @@ public class ReturnService {
 
     private Long getDatesDifference(Date dateOfReturn) {
 
-        if (LocalDate.now().isAfter(dateOfReturn.toLocalDate()))   {
+        if (LocalDate.now().isAfter(dateOfReturn.toLocalDate())) {
             //i tu odejmujemy daty
-
             LocalDate convertedDateOfReturn = dateOfReturn.toLocalDate();
             return ChronoUnit.DAYS.between(convertedDateOfReturn, LocalDate.now());
         }
