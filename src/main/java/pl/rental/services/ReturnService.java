@@ -27,7 +27,6 @@ public class ReturnService {
     private final ClientRepository clientRepository;
     private final RentRepository rentRepository;
 
-
     public void returnEquipment(EquipmentEntity machine) {
         Optional<EquipmentEntity> foundMachine = equipmentRepository.findById(machine.getId());
         EquipmentEntity returnedMachine = foundMachine.orElseGet(EquipmentEntity::new);
@@ -52,9 +51,6 @@ public class ReturnService {
             Optional<ClientEntity> clientIdSupply = clientRepository.findById(currentRent.get().getClientId().getId());
             clientId = clientIdSupply.orElseGet(ClientEntity::new);
 
-            Optional<EquipmentEntity> machineThing = equipmentRepository.findById(machineId.getId());
-            machineThing.ifPresent(this::returnEquipment);
-            Optional<EquipmentEntity> rentedMachine = equipmentRepository.findById(machineId.getId());
         } else {
             rentId = null;
             machineId = null;
